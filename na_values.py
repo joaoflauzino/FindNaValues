@@ -13,7 +13,7 @@ types_na_str = {"float64": lambda x: df[x].mean() if x == 0 else x,
 
 def check_na_values():
     for i, v in enumerate(columns):
-        df[v] = df[v].apply(types[str(df[v].dtype)])
+        df[v] = df[v].apply(types_na[str(df[v].dtype)])
 
     return df.isnull().sum()
 
@@ -29,7 +29,7 @@ def check_na_values_as_string():
             except:
                 df[v] = df[v].astype(str)
         
-        df[v] = df[v].apply(types[str(df[v].dtype)])
+        df[v] = df[v].apply(types_na_str[str(df[v].dtype)])
 
         return df.isnull().sum() 
         
