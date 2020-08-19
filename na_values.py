@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import math
 
+# Read csv
 df = pd.read_csv('CC GENERAL.csv', sep = ",", na_values = ['?', '', 'NA'])
 
 columns = df.columns
