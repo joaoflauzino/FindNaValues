@@ -1,3 +1,4 @@
+  
 import pandas as pd
 import numpy as np
 import math
@@ -40,4 +41,3 @@ def check_na_values():
 if __name__ == "__main__":
 
     check_na_values()
-
