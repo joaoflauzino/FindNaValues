@@ -7,14 +7,34 @@ df = pd.read_csv('CC GENERAL.csv', sep = ",", na_values = ['?', '', 'NA'])
 
 columns = df.columns
 
-types_na = {"float64": lambda x: df[x].mean() if math.isnan(x) == True else x, 
-         "int64": lambda x: int(df[x].mean()) if math.isnan(x) == True else x,
-         "object": lambda x: df[x].mode() if str(x) == None else x}
+def check_float(x, column):
+    if pd.isnull(x):
+        print('if')
+        return df[column].mean()
+    else:
+        return x
+
+def check_int(x, column):
+    if pd.isnull(x):
+        return int(df[column].mean())
+    else:
+        return x
+
+def check_object(x, column):
+    if pd.isnull(x):
+        return df[column].mode()
+    else:
+        return x
 
 def check_na_values():
     for i in columns:
-        df[i] = df[i].apply(types_na[str(df[i].dtype)])
-    
+        if str(df[i].dtype) == 'float64':
+            df[i] = df[i].apply(lambda x: check_float(x, i))
+        elif str(df[i].dtype) == 'int64':
+            df[i] = df[i].apply(lambda x: check_int(x, i))
+        elif str(df[i].dtype) == 'object':
+            df[i] = df[i].apply(lambda x: check_object(x, i))
+
     print(df.isnull().sum())
 
 if __name__ == "__main__":
